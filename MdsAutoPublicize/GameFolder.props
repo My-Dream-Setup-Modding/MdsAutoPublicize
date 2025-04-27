@@ -12,7 +12,12 @@
 		
 		<!--If BepInEx is manuelly installed in the game files, this is the same as GameFolder-->
 		<ModmanProfileFolder>C:\Program Files (x86)\Steam\steamapps\common\My dream setup\MDS</ModmanProfileFolder>
-		<!--If set to yes, automatically copies the compiled assembly into the R2ModMan profiles Bepinex folder.-->
+		
+		<!--If set to yes, automatically copies the compiled assembly into the BepInEx\plugins folder.-->
 		<CopyBuildToPluginFolder>true</CopyBuildToPluginFolder>
+
+		<!--Can be used, to define the folder where your plugin gets copied to, if (CopyBuildToPluginFolder) is set to true.--> 
+		<!--e.g. "MoveBindings" this will automatically copy your plugins into the BepInEx\plugins\MoveBindings folder.-->
+		<InnerPluginFolder>MdsAutoPublicize</InnerPluginFolder>
 	</PropertyGroup>
 </Project>

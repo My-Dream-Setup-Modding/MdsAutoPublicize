@@ -4,8 +4,9 @@
 	<Target Name="ValidateGamePath">
 		<Error Text="The GameFolder property must be set to the My Dream Setup game folder." 
 			   Condition="'$(GameFolder)' == '' or !Exists('$(GameFolder)')" />
-		<Error Text="The GameFolder property must be set to the My Dream Setup game folder."
-			   Condition="'$(GameFolder)' == '' or !Exists('$(GameFolder)')" />
+		<Error Text="The ModmanProfileFolder property must be set to the parent folder of your BepInEx Instance."
+			   Condition="'$(ModmanProfileFolder)' == '' 
+			   or !Exists('$(ModmanProfileFolder)\BepInEx')" />
 	</Target>
 
 	<!-- Path Info -->
@@ -74,7 +75,7 @@
 	<Target Name="CustomAfterBuild" AfterTargets="Build" Condition="$(CopyBuildToPluginFolder) == 'true'">
 		<Message Text="Copying Output to Plugins Folder..." Importance="High"/>
 		<Copy SourceFiles="$(OutputPath)\$(AssemblyName).dll"
-			  DestinationFolder="$(PluginsFolder)"/>
+			  DestinationFolder="$(PluginsFolder)\$(InnerPluginFolder)"/>
 		<Message Text="Output has copied to Plugins Folder!" Importance="High"/>
 	</Target>
 </Project>

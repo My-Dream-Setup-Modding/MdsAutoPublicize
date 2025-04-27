@@ -6,6 +6,7 @@
         {
             var cmdStart = DateTime.Now;
             var managedFolder = args[0];
+            var writeFileOnFinish = args[1];
             var outputFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Publicized");
 
             Console.WriteLine($"Start publicizing all files from {managedFolder} into {outputFolder}");
@@ -25,25 +26,35 @@
                 Console.WriteLine("============================================");
             }
 
-            Directory.CreateDirectory(outputFolder);
+            var dir = Directory.CreateDirectory(outputFolder);
 
             foreach (var file in Directory.EnumerateFiles(managedFolder))
             {
                 var start = DateTime.Now;
                 var fileName = Path.GetFileName(file);
-
-                BepInEx.AssemblyPublicizer.AssemblyPublicizer.Publicize(file,
-                    Path.Combine(outputFolder, fileName));
+                try
+                {
+                    BepInEx.AssemblyPublicizer.AssemblyPublicizer.Publicize(file,
+                        Path.Combine(outputFolder, fileName));
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error while publicizing assembly.");
+                    Console.WriteLine(ex);
+                    continue;
+                }
 
                 var workTime = DateTime.Now - start;
-                Console.WriteLine($"Worked {workTime.TotalSeconds.ToString("0.00")} seconds to publicized {fileName}");
+                Console.WriteLine($"Publicized {workTime.TotalSeconds.ToString("0.00")} seconds for {fileName}");
             }
 
-            var cmdWorkTime = DateTime.Now - cmdStart;
-            Console.WriteLine($"Completed publicizing all game files in {cmdWorkTime.TotalSeconds.ToString("0.00")}");
-            Console.WriteLine("Closing in 5 seconds...");
+            Console.WriteLine($"Writing check file {writeFileOnFinish}");
+            File.WriteAllText(Path.Combine(outputFolder, writeFileOnFinish),
+                  "This file is used, to check if the Assembly-CSharp file has still the same MetaData as last game start.\n" +
+                   "If this file gets deleted or does not fit anymore, the publicizing process gets started.");
 
-            Thread.Sleep(5000);
+            var cmdWorkTime = DateTime.Now - cmdStart;
+            Console.WriteLine($"Completed publicizing all game files in {cmdWorkTime.TotalSeconds.ToString("0.00")} seconds.");
         }
     }
 }
