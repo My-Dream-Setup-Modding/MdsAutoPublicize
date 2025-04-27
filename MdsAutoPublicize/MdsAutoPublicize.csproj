@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<Nullable>enable</Nullable>
+		<NuGetAuditMode>direct</NuGetAuditMode>
+		<!--<ProduceReferenceAssembly>True</ProduceReferenceAssembly>-->
+
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<!--<AllowedReferenceRelatedFileExtensions>.pdb;.dll.config;.runtimeconfig.dev.json;.runtimeconfig.json</AllowedReferenceRelatedFileExtensions>-->
+	</PropertyGroup>
+
+
+	
+	<Import Project="Dependencies.props" />
+
+	<ItemGroup>
+		<PackageReference Include="BepInEx.AssemblyPublicizer" Version="0.4.3" />
+
+	</ItemGroup>
+
+</Project>

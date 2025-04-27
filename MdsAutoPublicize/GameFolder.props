@@ -1,0 +1,18 @@
+<!--This metadata file contains info, on where to find necessary Bepinex and MDS dependencies-->
+<Project>
+	<PropertyGroup>
+		<!--The folder, where the exe of My dream Setup (MDS.exe) is located.-->
+		<!--If the game is installed on steams default location, it will be:-->
+		<!--C:\Program Files (x86)\Steam\steamapps\common\My dream setup\MDS-->
+		<GameFolder>C:\Program Files (x86)\Steam\steamapps\common\My dream setup\MDS</GameFolder>
+		
+		<!--The parent folder, of where BepInEx is located .-->
+		<!--If you use R2ModMan, this is the Profile Location-->
+		<!--e.g. C:\Users\MyUser\AppData\Roaming\r2modmanPlus-local\MyDreamSetup\profiles\Default-->
+		
+		<!--If BepInEx is manuelly installed in the game files, this is the same as GameFolder-->
+		<ModmanProfileFolder>C:\Program Files (x86)\Steam\steamapps\common\My dream setup\MDS</ModmanProfileFolder>
+		<!--If set to yes, automatically copies the compiled assembly into the R2ModMan profiles Bepinex folder.-->
+		<CopyBuildToPluginFolder>true</CopyBuildToPluginFolder>
+	</PropertyGroup>
+</Project>
