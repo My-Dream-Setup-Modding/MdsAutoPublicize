@@ -7,7 +7,7 @@
             var cmdStart = DateTime.Now;
             var managedFolder = args[0];
             var writeFileOnFinish = args[1];
-            var outputFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Publicized");
+            var outputFolder = args[2];
 
             Console.WriteLine($"Start publicizing all files from {managedFolder} into {outputFolder}");
             if (Directory.Exists(outputFolder))
@@ -23,6 +23,7 @@
                     Console.WriteLine($"Exception:\n{ex.ToString()}");
                     return;
                 }
+
                 Console.WriteLine("============================================");
             }
 
@@ -45,7 +46,7 @@
                 }
 
                 var workTime = DateTime.Now - start;
-                Console.WriteLine($"Publicized {workTime.TotalSeconds.ToString("0.00")} seconds for {fileName}");
+                Console.WriteLine($"Publicized {workTime.TotalSeconds.ToString("0.000")} seconds for {fileName}");
             }
 
             Console.WriteLine($"Writing check file {writeFileOnFinish}");
@@ -54,7 +55,7 @@
                    "If this file gets deleted or does not fit anymore, the publicizing process gets started.");
 
             var cmdWorkTime = DateTime.Now - cmdStart;
-            Console.WriteLine($"Completed publicizing all game files in {cmdWorkTime.TotalSeconds.ToString("0.00")} seconds.");
+            Console.WriteLine($"Completed publicizing all game files in {cmdWorkTime.TotalSeconds.ToString("0.000")} seconds.");
         }
     }
 }

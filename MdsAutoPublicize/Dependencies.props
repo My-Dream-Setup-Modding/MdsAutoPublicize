@@ -12,7 +12,7 @@
 	<!-- Path Info -->
 	<PropertyGroup>
 		<BIELibsFolder>$(ModmanProfileFolder)\BepInEx\core</BIELibsFolder>
-		<PublicizedLibsFolder>$(ModmanProfileFolder)\BepInEx\BepInEx.AssemblyPublicizer\Publicized</PublicizedLibsFolder>
+		<PublicizedLibsFolder>$(ModmanProfileFolder)\BepInEx\BepInEx.AssemblyPublicizer.Publicized</PublicizedLibsFolder>
 		<ManagedFolder>$(GameFolder)\MDS_Data\Managed</ManagedFolder>
 		<PluginsFolder>$(ModmanProfileFolder)\BepInEx\plugins</PluginsFolder>
 	</PropertyGroup>
@@ -26,13 +26,13 @@
 
 	<Choose>
 		<!--If the MDS Auto Publicizer has run yet, use publicized dlls and activate unsafe code.-->
-		<When Condition="Exists('$(PublicizedLibsFolder)')">
+		<When Condition="Exists('$(PublicizedLibsFolder)\Assembly-CSharp.dll')">
 			<ItemGroup >
 				<Reference Include="$(PublicizedLibsFolder)\*.dll" Private="false" />
 				<Reference Remove="$(PublicizedLibsFolder)\netstandard.dll" />
 			</ItemGroup>
 			<PropertyGroup>
-				<!--Allowing unsafe code, since .NET will complain on a non public call.--> 
+				<!--Allowing unsafe code, otherwise .NET will complain on a non public call.--> 
 				<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 			</PropertyGroup>
 		</When>

@@ -10,7 +10,7 @@
 		<!--If you use R2ModMan, this is the Profile Location-->
 		<!--e.g. C:\Users\MyUser\AppData\Roaming\r2modmanPlus-local\MyDreamSetup\profiles\Default-->
 		
-		<!--If BepInEx is manuelly installed in the game files, this is the same as GameFolder-->
+		<!--If BepInEx is manuelly installed in the game files, this is the same as GameFolder or "$(GameFolder)"-->
 		<ModmanProfileFolder>C:\Program Files (x86)\Steam\steamapps\common\My dream setup\MDS</ModmanProfileFolder>
 		
 		<!--If set to yes, automatically copies the compiled assembly into the BepInEx\plugins folder.-->

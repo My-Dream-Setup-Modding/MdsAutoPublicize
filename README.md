@@ -6,7 +6,7 @@ This is a unity mod for other mod creators, to automate the process of publicizi
 It automatically enumerates through all dll files located in <br/>
 `MDS_Data\Managed` <br/>
 and creates a publicized version of it here <br/>
-`BepInEx\BepInEx.AssemblyPublicizer\Publicized`
+`BepInEx\BepInEx.AssemblyPublicizer.Publicized`
 
 A check file is also created, to update the publicized files, when the game gets updated.
 
