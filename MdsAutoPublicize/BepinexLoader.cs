@@ -13,7 +13,7 @@ namespace MdsAutoPublicize
             MODNAME = "MdsAutoPublicize",
             AUTHOR = "Edsil",
             GUID = AUTHOR + "." + MODNAME,
-            VERSION = "1.0.0";
+            VERSION = "1.0.1";
 
         public void Awake()
         {

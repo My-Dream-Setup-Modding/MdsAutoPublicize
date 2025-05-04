@@ -1,7 +1,7 @@
 # Automatic Assembly Publicizer
 
 This is a unity mod for other mod creators, to automate the process of publicizing the game files with 
-[BepInEx.AssemblyPublicizer]([https://github.com/My-Dream-Setup-Modding/MdsAutoPublicize/blob/master/MdsAutoPublicize/Dependencies.props](https://github.com/BepInEx/BepInEx.AssemblyPublicizer)). 
+[BepInEx.AssemblyPublicizer](https://github.com/BepInEx/BepInEx.AssemblyPublicizer). 
 <br/><br/>
 It automatically enumerates through all dll files located in <br/>
 `MDS_Data\Managed` <br/>
