@@ -8,4 +8,8 @@
 
 	<Import Project="Dependencies.props" />
 
+	<ItemGroup>
+	  <PackageReference Include="BepInEx.AssemblyPublicizer" Version="0.4.3" />
+	</ItemGroup>
+
 </Project>

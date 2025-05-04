@@ -1,6 +1,5 @@
 ﻿using BepInEx;
 using System;
-using System.Diagnostics;
 using System.IO;
 using UnityEngine;
 
@@ -13,7 +12,7 @@ namespace MdsAutoPublicize
             MODNAME = "MdsAutoPublicize",
             AUTHOR = "Edsil",
             GUID = AUTHOR + "." + MODNAME,
-            VERSION = "1.0.1";
+            VERSION = "1.0.2";
 
         public void Awake()
         {
@@ -37,27 +36,14 @@ namespace MdsAutoPublicize
                 return;
             }
 
-            Logger.LogWarning($"No publicized game files exist! Starting the auto publicizer.");
             try
             {
-                var info = new ProcessStartInfo(assemblyPublicizerExe);
-                info.RedirectStandardOutput = true;
-                info.UseShellExecute = false;
-                info.CreateNoWindow = true;
-                info.Arguments = $"\"{managedPath}\" \"{Path.GetFileName(checkFilePath)}\" \"{bepinPublicizedFolder}\" ";
-                var publicizer = Process.Start(info);
-                ReadProcessOutput(publicizer.StandardOutput);
+                Run(managedPath, Path.GetFileName(checkFilePath), bepinPublicizedFolder);
             }
             catch (Exception ex)
             {
-                Logger.LogError($"Something went wrong, while starting the publicizer process and reading output:\n{ex}");
+                Logger.LogError($"Something went wrong, while starting the publicizer:\n{ex}");
             }
-        }
-
-        private void ReadProcessOutput(StreamReader processReader)
-        {
-            while (!processReader.EndOfStream)
-                Logger.LogMessage(processReader.ReadLine());
         }
 
         private bool TryFindParent(DirectoryInfo dir, string findName, out DirectoryInfo info)
@@ -73,6 +59,65 @@ namespace MdsAutoPublicize
 
             info = dir;
             return true;
+        }
+
+        private void Run(string managedFolder, string writeFileOnFinish, string outputFolder)
+        {
+            var cmdStart = DateTime.Now;
+
+            Logger.LogMessage($"Start publicizing all files from {managedFolder} into {outputFolder}");
+            if (Directory.Exists(outputFolder))
+            {
+                Logger.LogMessage($"Removing old publicized gamefiles.");
+                try
+                {
+                    Directory.Delete(outputFolder, true);
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogMessage($"Failed deleting existing publicized files, stop execution.");
+                    Logger.LogMessage($"Exception:\n{ex.ToString()}");
+                    return;
+                }
+
+                Logger.LogMessage("============================================");
+            }
+
+            var dir = Directory.CreateDirectory(outputFolder);
+
+            foreach (var file in Directory.EnumerateFiles(managedFolder))
+            {
+                var start = DateTime.Now;
+                var fileName = Path.GetFileName(file);
+                try
+                {
+                    if (fileName == "ICSharpCode.SharpZipLib.dll")
+                    {
+                        File.Copy(file, Path.Combine(outputFolder, fileName));
+                    }
+                    else
+                    {
+                        BepInEx.AssemblyPublicizer.AssemblyPublicizer.Publicize(file,
+                        Path.Combine(outputFolder, fileName));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogError($"Error while publicizing assembly.\n{ex}");
+                    continue;
+                }
+
+                var workTime = DateTime.Now - start;
+                Logger.LogMessage($"Publicized {workTime.TotalSeconds.ToString("0.000")} seconds for {fileName}");
+            }
+
+            Logger.LogMessage($"Writing check file {writeFileOnFinish}");
+            File.WriteAllText(Path.Combine(outputFolder, writeFileOnFinish),
+                  "This file is used, to check if the Assembly-CSharp file has still the same MetaData as last game start.\n" +
+                   "If this file gets deleted or does not fit anymore, the publicizing process gets started.");
+
+            var cmdWorkTime = DateTime.Now - cmdStart;
+            Logger.LogMessage($"Completed publicizing all game files in {cmdWorkTime.TotalSeconds.ToString("0.000")} seconds.");
         }
     }
 }
