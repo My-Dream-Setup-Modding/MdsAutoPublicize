@@ -5,19 +5,23 @@
 		<!--If the game is installed on steams default location, it will be:-->
 		<!--C:\Program Files (x86)\Steam\steamapps\common\My dream setup\MDS-->
 		<GameFolder>C:\Program Files (x86)\Steam\steamapps\common\My dream setup\MDS</GameFolder>
-		
+
 		<!--The parent folder, of where BepInEx is located .-->
 		<!--If you use R2ModMan, this is the Profile Location-->
 		<!--e.g. C:\Users\MyUser\AppData\Roaming\r2modmanPlus-local\MyDreamSetup\profiles\Default-->
-		
+
 		<!--If BepInEx is manuelly installed in the game files, this is the same as GameFolder or "$(GameFolder)"-->
 		<ModmanProfileFolder>C:\Program Files (x86)\Steam\steamapps\common\My dream setup\MDS</ModmanProfileFolder>
-		
-		<!--If set to yes, automatically copies the compiled assembly into the BepInEx\plugins folder.-->
+
+		<!--Downloads BepInEx.AssemblyPublicizer.MSBuild and publicizes all game files..-->
+		<!--This changes every Accessmodifier (Private, internal...) to public.-->
+		<PublicizeGameFiles>true</PublicizeGameFiles>
+
+		<!--Can be used, to automatically copy, the compiled project into the BepInEx\plugins folder.-->
 		<CopyBuildToPluginFolder>true</CopyBuildToPluginFolder>
 
-		<!--Can be used, to define the folder where your plugin gets copied to, if (CopyBuildToPluginFolder) is set to true.--> 
+		<!--Can be used, to define the folder where your plugin gets copied to, if (CopyBuildToPluginFolder) is set to true.-->
 		<!--e.g. "MoveBindings" this will automatically copy your plugins into the BepInEx\plugins\MoveBindings folder.-->
-		<InnerPluginFolder>MdsAutoPublicize</InnerPluginFolder>
+		<InnerPluginFolder>MdsOverlayApi</InnerPluginFolder>
 	</PropertyGroup>
 </Project>
